@@ -8,11 +8,15 @@ int main(int argc, char *argv[]) {
     }
     FILE *f = fopen(argv[2], "r");
 
-    if (strcmp("-c", argv[1]) == 0) {
+    if (strcmp("-c", argv[1]) == 0 || strcmp("-l", argv[1]) == 0) {
         int i = 0;
         int c;
         while ((c = fgetc(f)) != EOF) {
-            i++;
+            if (strcmp("-l", argv[1]) == 0 && c == '\n') {
+                i++;
+            } else if (strcmp("-c", argv[1]) == 0) {
+                i++;
+            }
         }
         printf("%d\n", i);
     }
