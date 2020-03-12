@@ -1,3 +1,12 @@
+/**
+ * @brief Word counting tool
+ * @author Viktor Malik <vmalik@redhat.com>
+ *
+ * A simple word-counting tool.
+ * Supports counting words, characters, lines, and phrases separated by
+ * custom separator.
+ */
+
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
