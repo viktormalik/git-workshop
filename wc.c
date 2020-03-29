@@ -35,9 +35,16 @@ int main(int argc, char *argv[]) {
     }
     FILE *f = fopen(argv[1], "r");
 
+    // character counter
     int c_opt = strcmp("-c", argv[2]) == 0;
+
+    // line counter
     int l_opt = strcmp("-l", argv[2]) == 0;
+
+    // word counter
     int w_opt = strcmp("-w", argv[2]) == 0;
+
+    // counter using the given separator
     int s_opt = strcmp("-s", argv[2]) == 0;
 
     if (c_opt || l_opt || w_opt || s_opt) {
