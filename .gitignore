@@ -1,3 +1,4 @@
 wc
 wc.o
 *.sw[po]
+.test-playground/
