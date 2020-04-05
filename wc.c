@@ -94,6 +94,13 @@ int main(int argc, char *argv[]) {
 
     FILE *f = fopen(config.filename, "r");
 
+    if (f == NULL) {
+      fprintf(stderr,
+              "The %s file cannot be opened. (Maybe it doesn't exist?)\n",
+              config.filename);
+      return 1;
+    }
+
     // do nothing if no counter is defined
     if (config.char_counter || config.word_counter || config.line_counter
             || config.separator != '\0') {
