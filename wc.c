@@ -43,8 +43,10 @@ struct Configuration {
     bool word_counter;    // word counter
 
     char separator;       // define own separator for counting
-    char* filename;       // the file that should be parsed
-} config = {false, false, false, '\0', NULL};
+
+    int files_count;      // total number of files to parse
+    char* filenames[100];  // the files that should be parsed
+} config = {false, false, false, '\0', 0};
 
 
 /**
@@ -97,14 +99,14 @@ int process_cmdline(int argc, char *argv[]) {
             config.separator = argv[i][0];
             count_defined++;
         } else if (argv[i][0] != '-') {
-            config.filename = argv[i];
+            config.filenames[config.files_count++] = argv[i];
         } else if (strcmp("-h", argv[i]) == 0) {
             print_help();
             exit(0);
         }
     }
 
-    if (config.filename == NULL) {
+    if (config.files_count == 0) {
         fprintf(stderr, "The input file is not specified.\n");
         return 1;
     }
@@ -212,5 +214,11 @@ int main(int argc, char *argv[]) {
     if (process_cmdline(argc, argv))
         return 1;
 
-    return process_file(config.filename);
+    int retval = 0;
+    for (int i = 0; i < config.files_count; i++) {
+        int process_retval = process_file(config.filenames[i]);
+        if (process_retval)
+            retval = process_retval;
+    }
+    return retval;
 }
