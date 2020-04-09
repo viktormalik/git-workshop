@@ -129,47 +129,51 @@ void print_result(const Stats* stats, const char* filename) {
   printf("%s\n", filename);
 }
 
-
-int main(int argc, char *argv[]) {
-
-    if (process_cmdline(argc, argv))
-        return 1;
-
-    FILE *f = fopen(config.filename, "r");
+/**
+ * Process the file.
+ *
+ * According to the configuration, apply counters on the <filename> file.
+ */
+int process_file(const char* filename) {
+    FILE *f = fopen(filename, "r");
 
     if (f == NULL) {
       fprintf(stderr,
               "The %s file cannot be opened. (Maybe it doesn't exist?)\n",
-              config.filename);
+              filename);
       return 1;
     }
 
-    // do nothing if no counter is defined
-    if (config.char_counter || config.word_counter || config.line_counter
-            || config.separator != '\0') {
-        int c;
-        bool count_next = true;
-        Stats stats = {0, 0, 0, 0};
-        while ((c = fgetc(f)) != EOF) {
-            if (config.line_counter && c == '\n') {
-                stats.lines++;
-            } else if (config.char_counter) {
-                stats.chars++;
-            } else if (config.word_counter) {
-                if (count_next) {
-                    if (isspace(c))
-                        stats.words++;
-                        count_next = false;
-                } else {
-                    count_next = true;
-                }
-            } else if (config.separator && c == config.separator) {
-                stats.custom_phrases++;
+    int c;
+    bool count_next = true;
+    Stats stats = {0, 0, 0, 0};
+    while ((c = fgetc(f)) != EOF) {
+        if (config.line_counter && c == '\n') {
+            stats.lines++;
+        } else if (config.char_counter) {
+            stats.chars++;
+        } else if (config.word_counter) {
+            if (count_next) {
+                if (isspace(c))
+                    stats.words++;
+                    count_next = false;
+            } else {
+                count_next = true;
             }
+        } else if (config.separator && c == config.separator) {
+            stats.custom_phrases++;
         }
-        // print results
-        print_result(&stats, config.filename);
     }
 
+    // print results
+    print_result(&stats, filename);
     return 0;
+}
+
+
+int main(int argc, char *argv[]) {
+    if (process_cmdline(argc, argv))
+        return 1;
+
+    return process_file(config.filename);
 }
