@@ -1,0 +1,302 @@
+% vim:set tw=0:
+
+% This program is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+%
+% This program is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+\RequirePackage{graphics}
+\ProvidesPackage{redhat}
+
+% Font
+\usepackage{fontspec}
+\setmainfont{Overpass-Light}
+\setsansfont{Overpass-Light}
+\newfontfamily{\titlefont}{Overpass}
+
+\mode<presentation> {
+
+    % Add the designator field
+    \newcommand*{\designator}[1]{\def\@designator{#1}}
+    \newcommand*{\@designator}{}
+
+    % color definitions
+    \definecolor{rhred}{RGB}{204,0,0}
+    \definecolor{rhrednew}{RGB}{238,0,0}
+    \setbeamercolor{structure}{fg=black}
+
+    % lists (itemize and enumerate)
+    \setbeamertemplate{enumerate items}[circle]
+    \setbeamertemplate{itemize items}[circle]
+    \setbeamercolor{local structure}{fg=black}
+    \setbeamercolor{itemize items}{fg=black}
+    \setbeamercolor{enumerate items}{fg=black}
+
+    % revert local structure's gray for description items
+    \setbeamercolor{description item}{parent=structure}
+
+    % normal sized block titles
+    \setbeamerfont{block title}{size={}}
+
+    % share default colors
+    \setbeamercolor{author}{parent=titlelike}
+    \setbeamercolor{institute}{parent=titlelike}
+    \setbeamercolor{date}{parent=titlelike}
+    \setbeamercolor{part name}{parent=titlelike}
+    \setbeamercolor{math text}{parent=normal text}
+    \setbeamercolor{normal text in math text}{parent=normal text}
+    \setbeamercolor{abstract}{parent=normal text}
+    \setbeamercolor{itemize/enumerate body}{parent=normal text}
+    \setbeamercolor{itemize/enumerate subbody}{parent=normal text}
+    \setbeamercolor{itemize/enumerate subsubbody}{parent=normal text}
+
+    %%%%%%%%%%%%%%%%%%%%%
+    %%                 %%
+    %%   First Slide   %%
+    %%                 %%
+    %%%%%%%%%%%%%%%%%%%%%
+
+    \newenvironment{cover}{
+        \setbeamertemplate{background canvas}{
+            \includegraphics[width=\paperwidth,height=\paperheight]{cover-new.png}
+        }
+        \setbeamercolor{structure}{fg=white}
+        \setbeamercolor{palette quaternary}{fg=white}
+        \setbeamercolor*{normal text}{fg=white,bg={}}
+        \usebeamercolor*{normal text}
+    }
+
+    \setbeamerfont{title}{family=\titlefont,size=\fontsize{19.2pt}{28.5pt}}
+    \setbeamerfont{subtitle}{size=\fontsize{12.5pt}{2pt}}
+    \setbeamerfont{author}{size=\fontsize{6.5pt}{2pt}}
+    \setbeamerfont{framefooter}{size=\fontsize{5.5pt}{2pt}}
+
+    \setbeamertemplate{title page}
+    {
+        \begin{beamercolorbox}[ht=52pt,leftskip=35pt]{logo}
+            \includegraphics[width=75pt]{redhat-w-new.png}
+        \end{beamercolorbox}
+        \begin{beamercolorbox}[ht=58pt,leftskip=60pt]{title}
+            \usebeamerfont{title}{\inserttitle}
+        \end{beamercolorbox}
+        \begin{beamercolorbox}[ht=24pt,leftskip=60pt]{institute}
+            \normalbaselines\usebeamerfont{subtitle}\insertsubtitle
+        \end{beamercolorbox}
+        \nointerlineskip
+        \begin{beamercolorbox}[ht=38pt,leftskip=60pt]{institute}
+	    \textcolor{rhrednew}{\rule{12pt}{.4pt}}\\
+	    \vspace{5pt}
+            \normalbaselines\usebeamerfont{author}\insertauthor
+        \end{beamercolorbox}
+        \nointerlineskip
+        \begin{beamercolorbox}[ht=11.1pt,leftskip=60pt]{institute}
+            \normalbaselines\usebeamerfont{author}\insertinstitute
+        \end{beamercolorbox}
+        \nointerlineskip
+%        \begin{beamercolorbox}[ht=11.1pt,leftskip=60pt]{institute}
+%            \normalbaselines\usebeamerfont{author}\insertdate
+%        \end{beamercolorbox}
+	\begin{beamercolorbox}[ht=54pt,leftskip=345pt]{logo}
+	    \includegraphics[width=60pt]{redhat-new.png}
+	\end{beamercolorbox}
+	\begin{beamercolorbox}[ht=0pt, leftskip=-211.2pt]{footline}
+	\vspace*{2.7pt}
+	   \vbox {
+		\centering
+		\usebeamerfont{framefooter}\insertframenumber{}\\[3pt]
+		\textcolor{rhrednew}{\rule{.4pt}{18pt}}
+	   }
+        \end{beamercolorbox}
+    }
+
+    \def\maketitle{
+        \begin{cover}
+            \begin{frame}[plain]
+                \titlepage
+            \end{frame}
+        \end{cover}
+    }
+
+    %%%%%%%%%%%%%%%%%%%%%
+    %%                 %%
+    %%  Divider Slides %%
+    %%                 %%
+    %%%%%%%%%%%%%%%%%%%%%
+
+    \setbeamerfont{dividertitle}{size=\fontsize{20pt}{20pt}}
+
+    \newenvironment{divider}{
+        \setbeamertemplate{background canvas}{
+            \includegraphics[width=\paperwidth,height=\paperheight]{divider.png}
+        }
+        \setbeamercolor{structure}{fg=white}
+        \setbeamercolor{palette quaternary}{fg=white}
+        \setbeamercolor*{normal text}{fg=white,bg={}}
+        \usebeamercolor*{normal text}
+    }
+
+    \AtBeginSection[]{
+        \begin{divider}
+            \begin{frame}[c,plain]
+                \begin{minipage}[c][\textheight][c]{\linewidth}
+                    \centering
+                    \usebeamerfont{dividertitle}\MakeUppercase{\secname}
+                \end{minipage}
+                \begin{picture}(0,0)(-384,3.5)
+                    \includegraphics[width=30pt]{redhat-w.png}
+                \end{picture}
+            \end{frame}
+        \end{divider}
+    }
+
+    %%%%%%%%%%%%%%%%%%%%%
+    %%                 %%
+    %%  Normal Slides  %%
+    %%                 %%
+    %%%%%%%%%%%%%%%%%%%%%
+
+    %
+    % Header
+    %
+
+    \setbeamerfont{frametitle}{family=\titlefont,size=\fontsize{17.5pt}{2pt}}
+    \setbeamercolor{frametitle}{fg=black}
+    \setbeamerfont{framesubtitle}{size=\fontsize{8.9pt}{2pt}}
+
+    \setbeamertemplate{frametitle}
+    {
+        \begin{beamercolorbox}[ht=30pt, leftskip=-9pt]{frametitle}
+	    \textcolor{rhrednew}{\rule{.4pt}{32pt}}
+        \end{beamercolorbox}
+        \begin{beamercolorbox}[ht=25pt]{frametitle}
+            \usebeamerfont{frametitle}{\insertframetitle}
+        \end{beamercolorbox}
+        \begin{beamercolorbox}[ht=14pt]{framesubtitle}
+            \usebeamerfont{framesubtitle}\insertframesubtitle
+        \end{beamercolorbox}
+    }
+
+
+    %
+    % Background
+    %
+
+%    \usebackgroundtemplate{
+%        \includegraphics[width=\paperwidth,height=\paperheight]{background.png}
+%    }
+
+    %
+    % Footer
+    %
+
+
+    % Make Beamer navigation disappear
+    \beamertemplatenavigationsymbolsempty
+
+    \setbeamercolor{footline}{fg=black}
+
+    \addtolength{\textheight}{-40pt}
+    \addtolength{\footskip}{0pt}
+
+    \setbeamertemplate{footline}
+    {
+        \leavevmode
+        \hbox{
+        \begin{beamercolorbox}[wd=.042\paperwidth,ht=2.25ex,dp=1ex,right,leftskip=8pt]{footline}
+	   \vbox {
+	    \centering
+		\usebeamerfont{framefooter}\insertframenumber{}\\[3pt]
+		\textcolor{rhrednew}{\rule{.4pt}{18pt}}
+	   }
+        \end{beamercolorbox}
+        \begin{beamercolorbox}[wd=.958\paperwidth,ht=2.25ex,dp=1ex,left,leftskip=1ex]{footline}
+            \usebeamerfont{framefooter}\MakeUppercase{\@designator}
+        \end{beamercolorbox}
+        }
+        \vskip-3pt
+        \begin{picture}(0,0)(-402,-11)
+           \includegraphics[width=35pt]{redhat-new.png}
+        \end{picture}
+    }
+
+    %%%%%%%%%%%%%%%%%%%%%
+    %%                 %%
+    %%  Thanks Slide   %%
+    %%                 %%
+    %%%%%%%%%%%%%%%%%%%%%
+
+    \setbeamerfont{thankyou}{size=\fontsize{19pt}{2pt}}
+    \setbeamerfont{social}{size=\fontsize{7pt}{2pt}}
+
+    \def\makethanks{
+        \begin{cover}
+            \begin{frame}[plain]
+                \begin{picture}(0,0)(-33,92)
+                   \includegraphics[width=70pt]{redhat-w.png}
+                \end{picture}
+                \begin{picture}(0,0)(-60,124)
+                    \usebeamerfont{thankyou}\textbf{THANK YOU}
+                \end{picture}
+                % Google Plus
+                \begin{picture}(0,0)(-55,170)
+                   \includegraphics[width=23pt]{box.png}
+                \end{picture}
+                \begin{picture}(0,0)(-53,170)
+                   \includegraphics[width=23pt]{social_gplus.png}
+                \end{picture}
+                \begin{picture}(0,0)(-78,160)
+                    \usebeamerfont{social}\href{http://plus.google.com/+RedHat}{plus.google.com/+RedHat}
+                \end{picture}
+                % LinkedIN
+                \begin{picture}(0,0)(-48,200)
+                   \includegraphics[width=23pt]{box.png}
+                \end{picture}
+                \begin{picture}(0,0)(-46,200)
+                   \includegraphics[width=23pt]{social_linkedin.png}
+                \end{picture}
+                \begin{picture}(0,0)(-71,190)
+                    \usebeamerfont{social}\href{http://linkedin.com/company/red-hat}{linkedin.com/company/red-hat}
+                \end{picture}
+                % YouTube
+                \begin{picture}(0,0)(-41,230)
+                   \includegraphics[width=23pt]{box.png}
+                \end{picture}
+                \begin{picture}(0,0)(-39,230)
+                   \includegraphics[width=23pt]{social_youtube.png}
+                \end{picture}
+                \begin{picture}(0,0)(-64,220)
+                    \usebeamerfont{social}\href{http://youtube.com/user/RedHatVideos}{youtube.com/user/RedHatVideos}
+                \end{picture}
+                % Facebook
+                \begin{picture}(0,0)(-185,170)
+                   \includegraphics[width=23pt]{box.png}
+                \end{picture}
+                \begin{picture}(0,0)(-183,170)
+                   \includegraphics[width=23pt]{social_facebook.png}
+                \end{picture}
+                \begin{picture}(0,0)(-208,160)
+                    \usebeamerfont{social}\href{http://facebook.com/redhatinc}{facebook.com/redhatinc}
+                \end{picture}
+                % Twitter
+                \begin{picture}(0,0)(-178,200)
+                   \includegraphics[width=23pt]{box.png}
+                \end{picture}
+                \begin{picture}(0,0)(-176,200)
+                   \includegraphics[width=23pt]{social_twitter.png}
+                \end{picture}
+                \begin{picture}(0,0)(-201,190)
+                    \usebeamerfont{social}\href{http://twitter.com/RedHatNews}{twitter.com/RedHatNews}
+                \end{picture}
+            \end{frame}
+    \end{cover}
+    }
+
+}

@@ -1,0 +1,60 @@
+\documentclass[t,aspectratio=169,usenames,dvipsnames,xcolor=table]{beamer}
+\usepackage{redhat-beamer/redhat}
+\usepackage{layout}
+\usepackage{xcolor}
+\usepackage{ulem}
+\usepackage{pifont}
+\usepackage{makecell}
+
+
+\definecolor{hlcolor}{RGB}{2,65,77}
+\definecolor{bgcolor}{RGB}{241,241,241}
+\definecolor{rhreddark}{RGB}{163,0,0}
+
+\newcommand{\hll}[1]{{\color{rhrednew} #1}}
+\newcommand{\hl}[1]{\textbf{\hll{#1}}}
+
+%
+% font
+%
+\usepackage{fontspec}
+\usepackage{fontawesome}
+\setmonofont{FreeMono}
+
+\usepackage{tikz}
+\usetikzlibrary{positioning,calc}
+
+\usepackage{listings}
+\usepackage{lstautogobble}
+\lstset{
+    language=C,
+    basicstyle={\tiny\ttfamily},
+    autogobble=true,
+    moredelim=**[is][\only<1>{\color{rhrednew}\bfseries}]{^}{^},
+    moredelim=**[is][\only<2->{\color{rhrednew}\bfseries}]{@}{@},
+    moredelim=**[is][\only<2->{\color{blue}\bfseries}]{~}{~},
+}
+
+\renewcommand<>{\sout}[1]{
+  \alt#2{\beameroriginal{\sout}{#1}}{#1}
+}
+
+\tikzset{onslide/.code args={<#1>#2}{%
+  \only<#1>{\pgfkeysalso{#2}} % \pgfkeysalso doesn't change the path
+}}
+
+\title{Advanced Git}
+\subtitle{IVS demonstration exercise}
+\author{Viktor Malík, Petr Stodůlka, Pavel Odvody}
+\institute{Red Hat}
+\date{April 14, 2020}
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}
+  \includegraphics[height=\textheight]{../git-figures/test.pdf}
+\end{frame}
+
+\end{document}
