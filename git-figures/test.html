@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Load the JS file -->
+    <script src="https://cdn.jsdelivr.net/npm/@gitgraph/js"></script>
+    <script src="style.js"></script>
+</head>
+<body>
+    <!-- DOM element in which we'll mount our graph -->
+    <div id="graph-container"></div>
+
+    <script>
+        // Get the graph container HTML element.
+        const graphContainer = document.getElementById("graph-container");
+
+        // Instantiate the graph.
+        const gitgraph = GitgraphJS.createGitgraph(graphContainer, options);
+
+        const master = gitgraph.branch("master")
+    
+        master.commit({
+            subject: "Add basics of the wc tool",
+            author: "Viktor Malik",
+        });
+        
+        master.commit({
+            subject: "Add testfile for testing of the wc",
+            author: "Petr Stodulka",
+        });
+        
+        master.commit({
+            subject: "Validate number of arguments",
+            author: "Viktor Malik",
+        });
+        
+        master.commit({
+            subject: "Add .gitignore",
+            author: "Viktor Malik",
+        });
+        
+        master.commit({
+            subject: "Add line counting",
+            author: "Viktor Malik",
+        });
+        
+        master.commit({
+            subject: "Merge branch 'master' of github.com:viktormalik/git_workshop",
+            author: "Viktor Malik",
+        });
+        
+        master.commit({
+            subject: "Optimize option checking",
+            author: "Viktor Malik",
+        });
+        
+        master.commit({
+            subject: "Add counting by custom characters",
+            author: "Viktor Malik",
+        });
+        
+        master.commit({
+            subject: "Make check more robust",
+            author: "Viktor Malik",
+        });
+        
+        master.commit({
+            subject: "Adjust indices of strings",
+            author: "Viktor Malik",
+        });
+        
+        master.commit({
+            subject: "Add Doxygen header comment",
+            author: "Viktor Malik",
+        });
+        
+        master.commit({
+            subject: "Handle successive whitespaces when counting words",
+            author: "Viktor Malik",
+        });
+        
+        master.commit({
+            subject: "Add comments",
+            author: "Viktor Malik",
+        });
+        
+    </script>
+</body>
+</html>
