@@ -2,7 +2,23 @@
 #include <string.h>
 #include <ctype.h>
 
+void print_help() {
+    printf("wc [-c | -l | -w] <filename>\n");
+    printf("Options:\n");
+    printf("    -c:    Count characters in the file\n");
+    printf("    -w:    Count words in da file\n");
+    printf("    -l:    Count lines in the file\n");
+    printf("    -h:    Print this help\n");
+    printf("\n");
+}
+
+
 int main(int argc, char *argv[]) {
+    if (argc == 2 && strcmp("-h", argv[1]) == 0) {
+        print_help();
+        return 0;
+    }
+
     if (argc != 3) {
         fprintf(stderr, "Incorrect number of arguments\n");
         return 1;
