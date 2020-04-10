@@ -3,11 +3,12 @@
 #include <ctype.h>
 
 void print_help() {
-    printf("wc [-c | -l | -w] <filename>\n");
+    printf("wc [-c | -l | -w | -s] <filename> [sep]\n");
     printf("Options:\n");
     printf("    -c:    Count characters in the file\n");
     printf("    -w:    Count words in the file\n");
     printf("    -l:    Count lines in the file\n");
+    printf("    -s:    Count own phrases (separated by sep)\n");
     printf("    -h:    Print this help\n");
     printf("\n");
 }
@@ -19,7 +20,7 @@ int main(int argc, char *argv[]) {
         return 0;
     }
 
-    if (argc != 3) {
+    if (argc != 3 && argc != 4) {
         fprintf(stderr, "Incorrect number of arguments\n");
         return 1;
     }
@@ -28,8 +29,9 @@ int main(int argc, char *argv[]) {
     int c_opt = strcmp("-c", argv[1]) == 0;
     int l_opt = strcmp("-l", argv[1]) == 0;
     int w_opt = strcmp("-w", argv[1]) == 0;
+    int s_opt = strcmp("-s", argv[1]) == 0;
 
-    if (c_opt || l_opt || w_opt) {
+    if (c_opt || l_opt || w_opt || s_opt) {
         int i = 0;
         int c;
         while ((c = fgetc(f)) != EOF) {
@@ -39,7 +41,9 @@ int main(int argc, char *argv[]) {
                 i++;
             } else if (w_opt && isspace(c)) {
 	    	i++;
-	    } 
+	    } else if (s_opt && c == argv[3][0]) {
+                i++;
+            }
         }
         printf("%d\n", i);
     }
