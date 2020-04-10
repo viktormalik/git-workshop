@@ -10,6 +10,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
+#include <stdbool.h>
+
 
 void print_help() {
     printf("wc <filename> [-c | -l | -w | -s] [sep]\n");
@@ -43,14 +45,21 @@ int main(int argc, char *argv[]) {
     if (c_opt || l_opt || w_opt || s_opt) {
         int i = 0;
         int c;
+        bool count_next = true;
         while ((c = fgetc(f)) != EOF) {
             if (l_opt && c == '\n') {
                 i++;
             } else if (c_opt) {
                 i++;
-            } else if (w_opt && isspace(c)) {
-	    	i++;
-	    } else if (s_opt && c == argv[3][0]) {
+            } else if (w_opt) {
+                if (count_next) {
+                    if (isspace(c))
+                        i++;
+                        count_next = false;
+                } else {
+                    count_next = true;
+                }
+            } else if (s_opt && c == argv[3][0]) {
                 i++;
             }
         }
