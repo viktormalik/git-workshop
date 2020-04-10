@@ -106,13 +106,20 @@ int main(int argc, char *argv[]) {
             || config.separator != '\0') {
         int i = 0;
         int c;
+        bool count_next = true;
         while ((c = fgetc(f)) != EOF) {
             if (config.line_counter && c == '\n') {
                 i++;
             } else if (config.char_counter) {
                 i++;
-            } else if (config.word_counter && isspace(c)) {
-                i++;
+            } else if (config.word_counter) {
+                if (count_next) {
+                    if (isspace(c))
+                        i++;
+                        count_next = false;
+                } else {
+                    count_next = true;
+                }
             } else if (config.separator && c == config.separator) {
                 i++;
             }
