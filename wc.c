@@ -14,22 +14,27 @@
 #include <stdbool.h>
 
 #include <sys/stat.h>
-
+#include <dirent.h>
 
 #ifndef S_IFMT
     // masks for the struct stat
     #define S_IFMT     0170000     // bit mask for the file type bit field
     #define S_IFREG    0100000     // regular file
+    #define S_IFDIR    0040000     // directory
 #endif
+
+#define MAX_DEPTH  20          // define max depth can be reached in recursion
+#define FILE_SEPARATOR "/"
 
 
 void print_help() {
-    printf("wc <filename> [-c | -l | -w | -s] [sep]\n");
+    printf("wc [-c | -l | -w | -s sep] <filename> [filename...]\n");
     printf("Options:\n");
     printf("    -c:    Count characters in the file\n");
     printf("    -w:    Count words in the file\n");
     printf("    -l:    Count lines in the file\n");
     printf("    -s:    Count own phrases (separated by sep)\n");
+    printf("    -r:    If the filename is a directory, count recursively all files inside.\n");
     printf("    -h:    Print this help\n");
     printf("\n");
 }
@@ -41,12 +46,14 @@ struct Configuration {
     bool char_counter;    // character counter
     bool line_counter;    // line counter
     bool word_counter;    // word counter
+    bool recursive;       // if filename is directory, process all files
+                          // recursively
 
     char separator;       // define own separator for counting
 
     int files_count;      // total number of files to parse
     char* filenames[100];  // the files that should be parsed
-} config = {false, false, false, '\0', 0};
+} config = {false, false, false, false, '\0', 0};
 
 
 /**
@@ -98,6 +105,8 @@ int process_cmdline(int argc, char *argv[]) {
             i++;
             config.separator = argv[i][0];
             count_defined++;
+        } else if (strcmp("-r", argv[i]) == 0) {
+            config.recursive = true;
         } else if (argv[i][0] != '-') {
             config.filenames[config.files_count++] = argv[i];
         } else if (strcmp("-h", argv[i]) == 0) {
@@ -141,6 +150,27 @@ void print_result(const Stats* stats, const char* filename) {
 }
 
 
+/**
+ * Return true if the filename is a directory, otherwise false.
+ */
+bool is_dir(const char* filename) {
+    struct stat sb;
+    if(stat(filename, &sb) == -1) {
+        fprintf(stderr, "Cannot get data about the %s file.\n", filename);
+        return false;
+    }
+
+
+    if ((sb.st_mode & S_IFMT) == S_IFDIR)
+        return true;
+
+    return false;
+}
+
+
+/**
+ * Return true if the filename is a regular file, otherwise false.
+ */
 bool is_file(const char* filename) {
     struct stat sb;
     if(stat(filename, &sb) == -1) {
@@ -160,14 +190,50 @@ bool is_file(const char* filename) {
  *
  * According to the configuration, apply counters on the <filename> file.
  */
-int process_file(const char* filename) {
+int process_file(const char* filename, int depth) {
+    if (is_dir(filename)) {
+        if (!config.recursive)
+            return 0;    // skip the dir; recursion is not configured
+
+        if (depth >= MAX_DEPTH) {
+            fprintf(stderr,
+                    "Max depth reached. Skipping the %s directory.\n", filename);
+            return 1;
+        }
+
+        // process the files inside the filename directory
+        DIR *fdir = opendir(filename);
+        struct dirent *dir_entry;
+        char pathname[1024];
+        int r_val = 0;
+
+        if (fdir == NULL) {
+            fprintf(stderr, "The %s directory cannot be opened.\n", filename);
+            return 1;
+        }
+
+        while((dir_entry = readdir(fdir)) != NULL) {
+            strcpy(pathname, filename);
+            strcat(pathname, FILE_SEPARATOR);
+            strcat(pathname, dir_entry->d_name);
+            if (strcmp(".", dir_entry->d_name) == 0
+                || (strcmp("..", dir_entry->d_name) == 0))
+                continue;
+
+            if(process_file(pathname, ++depth))
+                r_val = 1;
+        }
+        return r_val;
+
+        closedir(fdir);
+    }
 
     if (!is_file(filename)) {
         // we are interested just about regular files or directories; skip
         fprintf(stderr,
                 "The %s file is not regular file nor directory. Skipping.\n",
                 filename);
-        return 1;
+        return 0;
     }
 
 
@@ -216,7 +282,7 @@ int main(int argc, char *argv[]) {
 
     int retval = 0;
     for (int i = 0; i < config.files_count; i++) {
-        int process_retval = process_file(config.filenames[i]);
+        int process_retval = process_file(config.filenames[i], 0);
         if (process_retval)
             retval = process_retval;
     }
