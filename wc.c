@@ -49,8 +49,8 @@ int main(int argc, char *argv[]) {
             } else if (c_opt) {
                 i++;
             } else if (w_opt && isspace(c)) {
-	    	i++;
-	    } else if (s_opt && c == argv[3][0]) {
+                i++;
+            } else if (s_opt && c == argv[3][0]) {
                 i++;
             }
         }
