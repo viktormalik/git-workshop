@@ -13,6 +13,15 @@
 #include <ctype.h>
 #include <stdbool.h>
 
+#include <sys/stat.h>
+
+
+#ifndef S_IFMT
+    // masks for the struct stat
+    #define S_IFMT     0170000     // bit mask for the file type bit field
+    #define S_IFREG    0100000     // regular file
+#endif
+
 
 void print_help() {
     printf("wc <filename> [-c | -l | -w | -s] [sep]\n");
@@ -129,12 +138,37 @@ void print_result(const Stats* stats, const char* filename) {
   printf("%s\n", filename);
 }
 
+
+bool is_file(const char* filename) {
+    struct stat sb;
+    if(stat(filename, &sb) == -1) {
+        fprintf(stderr, "Cannot get data about the %s file.\n", filename);
+        return false;
+    }
+
+    if ((sb.st_mode & S_IFMT) == S_IFREG)
+        return true;
+
+    return false;
+}
+
+
 /**
  * Process the file.
  *
  * According to the configuration, apply counters on the <filename> file.
  */
 int process_file(const char* filename) {
+
+    if (!is_file(filename)) {
+        // we are interested just about regular files or directories; skip
+        fprintf(stderr,
+                "The %s file is not regular file nor directory. Skipping.\n",
+                filename);
+        return 1;
+    }
+
+
     FILE *f = fopen(filename, "r");
 
     if (f == NULL) {
