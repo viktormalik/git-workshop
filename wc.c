@@ -3,7 +3,7 @@
 #include <ctype.h>
 
 void print_help() {
-    printf("wc [-c | -l | -w | -s] <filename> [sep]\n");
+    printf("wc <filename> [-c | -l | -w | -s] [sep]\n");
     printf("Options:\n");
     printf("    -c:    Count characters in the file\n");
     printf("    -w:    Count words in the file\n");
@@ -20,16 +20,16 @@ int main(int argc, char *argv[]) {
         return 0;
     }
 
-    if (!(argc == 3 || (argc == 4 && strcmp("-s", argv[1]) == 0))) {
+    if (!(argc == 3 || (argc == 4 && strcmp("-s", argv[2]) == 0))) {
         fprintf(stderr, "Incorrect number of arguments\n");
         return 1;
     }
-    FILE *f = fopen(argv[2], "r");
+    FILE *f = fopen(argv[1], "r");
 
-    int c_opt = strcmp("-c", argv[1]) == 0;
-    int l_opt = strcmp("-l", argv[1]) == 0;
-    int w_opt = strcmp("-w", argv[1]) == 0;
-    int s_opt = strcmp("-s", argv[1]) == 0;
+    int c_opt = strcmp("-c", argv[2]) == 0;
+    int l_opt = strcmp("-l", argv[2]) == 0;
+    int w_opt = strcmp("-w", argv[2]) == 0;
+    int s_opt = strcmp("-s", argv[2]) == 0;
 
     if (c_opt || l_opt || w_opt || s_opt) {
         int i = 0;
