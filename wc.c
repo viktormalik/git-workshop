@@ -25,15 +25,19 @@ int main(int argc, char *argv[]) {
     }
     FILE *f = fopen(argv[2], "r");
 
-    if (strcmp("-c", argv[1]) == 0 || strcmp("-l", argv[1]) == 0 || strcmp("-w", argv[1]) == 0) {
+    int c_opt = strcmp("-c", argv[1]) == 0;
+    int l_opt = strcmp("-l", argv[1]) == 0;
+    int w_opt = strcmp("-w", argv[1]) == 0;
+
+    if (c_opt || l_opt || w_opt) {
         int i = 0;
         int c;
         while ((c = fgetc(f)) != EOF) {
-            if (strcmp("-l", argv[1]) == 0 && c == '\n') {
+            if (l_opt && c == '\n') {
                 i++;
-            } else if (strcmp("-c", argv[1]) == 0) {
+            } else if (c_opt) {
                 i++;
-            } else if (strcmp("-w", argv[1]) == 0 && isspace(c)) {
+            } else if (w_opt && isspace(c)) {
 	    	i++;
 	    } 
         }
