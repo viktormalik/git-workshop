@@ -19,27 +19,30 @@
         const master = gitgraph.branch("master")
     
         master.commit({
-            subject: "Add help for the wc utility",
+            subject: "Add basics of the wc tool",
+            author: "Viktor Malik",
+        });
+        
+        master.commit({
+            subject: "Add testfile for testing of the wc",
             author: "Petr Stodulka",
         });
         
         master.commit({
-            subject: "Optimise getting CLI options",
+            subject: "Validate number of arguments",
             author: "Viktor Malik",
         });
         
-        const own_separator = gitgraph.branch("own-separator")
-    
-        own_separator.commit({
-            subject: "Add counting by custom separator",
+        master.commit({
+            subject: "Add .gitignore",
             author: "Viktor Malik",
         });
-        
-        own_separator.commit({
-            subject: "More robust CLI options check",
-            author: "Viktor Malik",
+
+        master.commit({
+            subject: "Add words counting",
+            author: "Petr Stodulka",
         });
-        
+
     </script>
 </body>
 </html>
