@@ -54,7 +54,253 @@
 \maketitle
 
 \begin{frame}
-  \includegraphics[height=\textheight]{../git-figures/test.pdf}
+  \frametitle{Prerequisites}
+  \begin{itemize}
+    \setlength\itemsep{.3em}
+    \item Basic knowledge of Git commands for:
+      \begin{itemize}
+      \setlength\itemsep{.3em}
+        \item creating commits (\texttt{git add, git commit})
+        \item inspecting current state (\texttt{git status, git diff})
+        \item inspecting history (\texttt{git log, git show})
+        \item working with remotes (\texttt{git pull, git push})
+        \item working with branches (\texttt{git checkout, git branch})
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Let's start}
+  \begin{itemize}
+    \item We'll write a simple tool for counting characters, words, and lines
+      in a file (similar to the \texttt{wc} utility)
+    \item We start with a pre-initialized repo containing very basics of the
+      tool:\\
+      https://github.com/viktormalik/git-workshop
+    \item The repo contains a source file \texttt{wc.c}, a testing file, and 
+      a \texttt{Makefile}
+    \item We start by adding \texttt{.gitignore} and commiting it
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Current status of the repo}
+  \centering
+  \includegraphics[scale=0.8]{../git-figures/01-initial.pdf}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Basic team synchronisation}
+  \vspace{-1em}
+  Every member implements a different feature in their master
+  \vspace{1em}
+  \begin{center}
+    \includegraphics[scale=0.6]{../git-figures/02-lines.pdf}
+    \hspace{6em}
+    \includegraphics[scale=0.6]{../git-figures/02-words.pdf}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Basic team synchronisation}
+  \vspace{-1em}
+  The second one to push must do a merge (and resolve a merge conflict)
+  \vspace{1em}
+  \begin{center}
+    \includegraphics[scale=0.6]{../git-figures/02-after-merge.pdf}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Better team synchronisation}
+  \begin{itemize}
+    \item \textbf{This is not a good practice!}
+    \item Always implement new features in \textbf{separate branches}.
+    \item Potential merge conflicts should be resolved in the feature branch.
+    \item Ideally, merging into master should be always done using \textbf{pull
+      requests}
+      \begin{itemize}
+        \setlength\itemsep{.2em}
+        \item They allow other team members to comment on the changes
+        \item Changes can be \textbf{reviewed} before they get into master
+        \item Master always contains a working and approved version of the
+          project
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Using a feature branch}
+  \vspace{-1em}
+  Let us add help into the tool using a separate branch add\_help
+  \vspace{1em}
+  \begin{center}
+    \includegraphics[scale=0.6]{../git-figures/03-help.pdf}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Using a feature branch}
+  \vspace{-1em}
+  The state of master after \textbf{rebase}:
+  \vspace{1em}
+  \begin{center}
+    \includegraphics[scale=0.6]{../git-figures/03-after-rebase.pdf}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Moving branches}
+  \vspace{-1em}
+  We have 2 branches pointing to the same commit and we want to move one
+  backwards.
+  \vspace{1em}
+  \begin{center}
+    \hspace{-2em}
+    \includegraphics[scale=0.7]{../git-figures/04-start.pdf}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Moving branches}
+  \vspace{-1em}
+  This can be done using\, \texttt{git reset HEAD \^}.
+  \vspace{1em}
+  \begin{center}
+    \hspace{-2em}
+    \includegraphics[scale=0.7]{../git-figures/04-after-reset.pdf}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Moving branches}
+  \vspace{-1em}
+  After adding a new commit to \textit{options-opt}:
+  \vspace{1em}
+  \begin{center}
+    \hspace{-2em}
+    \includegraphics[scale=0.6]{../git-figures/04-separate-branches.pdf}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Moving branches}
+  \vspace{-1em}
+  \textit{options-opt} can be now merged into master while
+    \textit{own-separator} remains a feature branch in development.
+  \vspace{1em}
+  \begin{center}
+    \hspace{-2em}
+    \includegraphics[scale=0.6]{../git-figures/04-after-merge.pdf}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Rebasing feature branches}
+  \vspace{-1em}
+  We add more commits to the feature branch and then \textbf{rebase} it onto
+  master (to avoid creation of a merge commit).
+  \vspace{1em}
+  \begin{center}
+    \hspace{-2em}
+    \includegraphics[scale=0.6]{../git-figures/04-after-rebase.pdf}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Rebasing feature branches}
+  \vspace{-1em}
+  We made a mistake during rebase, which we had to fix with an additional
+  commit.
+  \vspace{1em}
+  \begin{center}
+    \hspace{-2em}
+    \includegraphics[scale=0.6]{../git-figures/04-after-fix.pdf}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Rebasing feature branches}
+  \vspace{-1em}
+  It is possible to merge the ``fix commit'' into one of the previous commits
+  using \textbf{interactive rebase} (\texttt{git rebase -i}).
+  \vspace{1em}
+  \begin{center}
+    \hspace{-2em}
+    \includegraphics[scale=0.6]{../git-figures/04-after-rebase.pdf}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Interactive rebase}
+  \begin{itemize}
+    \item One of the most important Git features in the modern pull
+      request-based workflow.
+    \item Allows to \textbf{edit}, \textbf{reorder}, \textbf{merge}, or
+      \textbf{drop} commits.
+    \item \textbf{Rewrites history} -- should be only used on feature branches.
+    \item \textbf{Never rewrite history of master!}
+      \begin{itemize}
+        \item Other developers would not be able to do\, \texttt{git pull}.
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Copying commits from other branches}
+  \vspace{-1em}
+  It is possible to copy commits from other branches (e.g. commits implementing
+  useful features from co-workers feature branches) using\, \texttt{git
+  cherry-pick}.
+  \vspace{1em}
+  \begin{center}
+    \includegraphics[scale=0.6]{../git-figures/05-recursion.pdf}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Copying commits from other branches}
+  \vspace{-1em}
+  After moving 3 commits from \textit{recursion} \textit{multiple-files}:
+  \vspace{2.2em}
+  \begin{center}
+    \includegraphics[scale=0.6]{../git-figures/05-multiple-files.pdf}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Copying commits from other branches}
+  \vspace{-1em}
+  If the commits are altered in \textit{multiple-files}, it mey be needed to
+  use \texttt{skip} when rebasing \textit{recursion} onto
+  \textit{multiple-files}.
+  \vspace{1em}
+  \begin{center}
+    \includegraphics[scale=0.6]{../git-figures/05-multiple-files-rebase.pdf}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Hunting bugs in Git history}
+  \vspace{-1em}
+  \begin{itemize}
+    \item We often discover a bug that was certainly introduced
+      \textbf{somewhere in the Git history}.
+      \begin{itemize}
+        \item There is a revision in the past where some test works correctly.
+        \item However, the test does not work now.
+      \end{itemize}
+    \item Git offers \texttt{git bisect} that uses \textbf{binary search} to
+      localise the commit that caused the bug.
+      \begin{itemize}
+        \item \texttt{git bisect start} starts bisecting.
+        \item \texttt{git bisect good} marks a commit that does not contain
+          the bug.
+        \item \texttt{git bisect bad} marks a commit contains the bug.
+      \end{itemize}
+    \item The process can be \textbf{automated} using a script that returns 0
+      on success and a non-zero result on failure.
+  \end{itemize}
 \end{frame}
 
 \end{document}
