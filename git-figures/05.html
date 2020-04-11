@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Load the JS file -->
+    <script src="https://cdn.jsdelivr.net/npm/@gitgraph/js"></script>
+    <script src="style.js"></script>
+</head>
+<body>
+    <!-- DOM element in which we'll mount our graph -->
+    <div id="graph-container"></div>
+
+    <script>
+        // Get the graph container HTML element.
+        const graphContainer = document.getElementById("graph-container");
+
+        // Instantiate the graph.
+        const gitgraph = GitgraphJS.createGitgraph(graphContainer, options);
+
+        const master = gitgraph.branch("master")
+    
+        master.commit({
+            subject: "Merge branch 'master' of github.com:viktormalik/git_workshop",
+            author: "Viktor Malik",
+        });
+        
+        master.commit({
+            subject: "Add help for the wc utility",
+            author: "Petr Stodulka",
+        });
+        
+        const own_separator = gitgraph.branch("own-separator, option-opt")
+    
+        own_separator.commit({
+            subject: "Add counting by custom separator",
+            author: "Viktor Malik",
+        });
+        
+        const option_opt = gitgraph.branch("option-opt")
+    
+    </script>
+</body>
+</html>

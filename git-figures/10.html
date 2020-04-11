@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Load the JS file -->
+    <script src="https://cdn.jsdelivr.net/npm/@gitgraph/js"></script>
+    <script src="style.js"></script>
+</head>
+<body>
+    <!-- DOM element in which we'll mount our graph -->
+    <div id="graph-container"></div>
+
+    <script>
+        // Get the graph container HTML element.
+        const graphContainer = document.getElementById("graph-container");
+
+        // Instantiate the graph.
+        const gitgraph = GitgraphJS.createGitgraph(graphContainer, options);
+
+        const master = gitgraph.branch("master")
+    
+        master.commit({
+            subject: "Add help for the wc utility",
+            author: "Petr Stodulka",
+        });
+        
+        master.commit({
+            subject: "Optimise getting CLI options",
+            author: "Viktor Malik",
+        });
+        
+        const own_separator = gitgraph.branch("own-separator")
+    
+        own_separator.commit({
+            subject: "Add counting by custom separator",
+            author: "Viktor Malik",
+        });
+        
+        own_separator.commit({
+            subject: "More robust CLI options check",
+            author: "Viktor Malik",
+        });
+        
+    </script>
+</body>
+</html>
