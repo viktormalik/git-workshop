@@ -19,25 +19,29 @@
         const master = gitgraph.branch("master")
     
         master.commit({
-            subject: "Merge branch 'master' of github.com:viktormalik/git_workshop",
+            subject: "Handle successive whitespaces when counting words",
             author: "Viktor Malik",
         });
         
-        master.commit({
-            subject: "Add help for the wc utility",
+        const multiple_files = gitgraph.branch("multiple-files")
+    
+        multiple_files.commit({
+            subject: "Enable multiple counters and use new output format",
             author: "Petr Stodulka",
         });
         
-        const option_opt = gitgraph.branch("option-opt")
-        const own_separator = gitgraph.branch("own-separator")
-    
-        option_opt.commit({
-            subject: "Optimise getting CLI options",
-            author: "Viktor Malik",
+        multiple_files.commit({
+            subject: "Refactoring: process the file inside process_file()",
+            author: "Petr Stodulka",
         });
         
-        own_separator.commit({
-            subject: "Add counting by custom separator",
+        multiple_files.commit({
+            subject: "Count only regular files",
+            author: "Petr Stodulka",
+        });
+        
+        multiple_files.commit({
+            subject: "Support multiple input files",
             author: "Viktor Malik",
         });
         

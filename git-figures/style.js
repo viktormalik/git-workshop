@@ -1,6 +1,6 @@
 const options = {
     template: GitgraphJS.templateExtend("metro", {
-        colors: ["#008fb5", "#f1c109", "#979797"],
+        colors: ["#ee0000", "#008fb5", "#979797"],
         commit: {
             message: {
                 displayAuthor: false,

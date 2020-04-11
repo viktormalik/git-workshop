@@ -19,16 +19,6 @@
         const master = gitgraph.branch("master")
     
         master.commit({
-            subject: "Add basics of the wc tool",
-            author: "Viktor Malik",
-        });
-        
-        master.commit({
-            subject: "Add testfile for testing of the wc",
-            author: "Petr Stodulka",
-        });
-        
-        master.commit({
             subject: "Validate number of arguments",
             author: "Viktor Malik",
         });
@@ -37,16 +27,29 @@
             subject: "Add .gitignore",
             author: "Viktor Malik",
         });
+
+        const other_branch = gitgraph.branch({
+            name: "",
+            style: {
+                label: {
+                    display: false
+                }
+            }
+        });
         
         master.commit({
             subject: "Add line counting",
             author: "Viktor Malik",
         });
-        
-        master.commit({
-            subject: "Merge branch 'master' of github.com:viktormalik/git_workshop",
-            author: "Viktor Malik",
+
+        other_branch.commit({
+            subject: "Add words counting",
+            author: "Petr Stodulka",
         });
+        
+        master.merge(
+            other_branch, 
+            "Merge branch 'master' of github.com:viktormalik/git_workshop");
         
     </script>
 </body>

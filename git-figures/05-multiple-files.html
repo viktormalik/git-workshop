@@ -19,24 +19,29 @@
         const master = gitgraph.branch("master")
     
         master.commit({
-            subject: "Add help for the wc utility",
+            subject: "Handle successive whitespaces when counting words",
+            author: "Viktor Malik",
+        });
+        
+        const multiple_files = gitgraph.branch("multiple-files")
+    
+        multiple_files.commit({
+            subject: "Enable multiple counters and use new output format",
             author: "Petr Stodulka",
         });
         
-        master.commit({
-            subject: "Optimise getting CLI options",
-            author: "Viktor Malik",
+        multiple_files.commit({
+            subject: "[Recursion 1/3] Refactoring: process the file inside process_file()",
+            author: "Petr Stodulka",
         });
         
-        const own_separator = gitgraph.branch("own-separator")
-    
-        own_separator.commit({
-            subject: "Add counting by custom separator",
-            author: "Viktor Malik",
+        multiple_files.commit({
+            subject: "[Recursion 2/3] Count only regular files",
+            author: "Petr Stodulka",
         });
         
-        own_separator.commit({
-            subject: "More robust CLI options check",
+        multiple_files.commit({
+            subject: "Support multiple input files",
             author: "Viktor Malik",
         });
         
