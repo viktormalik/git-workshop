@@ -214,7 +214,7 @@
 \begin{frame}
   \frametitle{Rebasing feature branches}
   \vspace{-1em}
-  We made a mistake during rebase, which we had to fix with an additional
+  We made a mistake during the rebase, which we had to fix with an additional
   commit.
   \vspace{1em}
   \begin{center}
@@ -241,8 +241,8 @@
     \setlength\itemsep{.5em}
     \item One of the most important Git features in the modern pull
       request-based workflow.
-    \item Allows to \textbf{edit}, \textbf{reorder}, \textbf{merge}, or
-      \textbf{drop} commits.
+    \item Allows to \textbf{edit}, \textbf{reorder}, \textbf{merge (squash)},
+      or \textbf{drop} commits.
     \item \textbf{Rewrites history} -- should be only used on feature branches.
     \item \textbf{Never rewrite history of master!}
       \begin{itemize}
@@ -293,7 +293,7 @@
     \item We often discover a bug that was certainly introduced
       \textbf{somewhere in the Git history}.
       \begin{itemize}
-        \item There is a revision in the past where some test works correctly.
+        \item There is a revision in the past where certain test works correctly.
         \item However, the test does not work now.
       \end{itemize}
     \pause
