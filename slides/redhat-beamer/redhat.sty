@@ -135,7 +135,7 @@
 
     \newenvironment{divider}{
         \setbeamertemplate{background canvas}{
-            \includegraphics[width=\paperwidth,height=\paperheight]{divider.png}
+            \includegraphics[width=\paperwidth,height=\paperheight]{cover-new.png}
         }
         \setbeamercolor{structure}{fg=white}
         \setbeamercolor{palette quaternary}{fg=white}
@@ -148,10 +148,10 @@
             \begin{frame}[c,plain]
                 \begin{minipage}[c][\textheight][c]{\linewidth}
                     \centering
-                    \usebeamerfont{dividertitle}\MakeUppercase{\secname}
+                    \usebeamerfont{dividertitle}{\secname}
                 \end{minipage}
-                \begin{picture}(0,0)(-384,3.5)
-                    \includegraphics[width=30pt]{redhat-w.png}
+                \begin{picture}(0,0)(-345,-4.5)
+                    \includegraphics[width=60pt]{redhat-new.png}
                 \end{picture}
             \end{frame}
         \end{divider}
