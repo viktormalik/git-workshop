@@ -76,7 +76,7 @@
       in a file (similar to the \texttt{wc} utility)
     \item We start with a pre-initialized repo containing very basics of the
       tool:\\
-      https://github.com/viktormalik/git-workshop
+      \url{https://github.com/viktormalik/git-workshop}
     \item The repo contains a source file \texttt{wc.c}, a testing file, and 
       a \texttt{Makefile}
     \item We start by adding \texttt{.gitignore} and commiting it
@@ -92,7 +92,7 @@
 \begin{frame}
   \frametitle{Basic team synchronisation}
   \vspace{-1em}
-  Every member implements a different feature in their master
+  Every member implements a different feature in their \textit{master}
   \vspace{1em}
   \begin{center}
     \includegraphics[scale=0.6]{../git-figures/02-lines.pdf}
@@ -132,7 +132,7 @@
 \begin{frame}
   \frametitle{Using a feature branch}
   \vspace{-1em}
-  Let us add help into the tool using a separate branch add\_help
+  Let us add help into the tool using a separate branch \textit{add\_help}
   \vspace{1em}
   \begin{center}
     \includegraphics[scale=0.6]{../git-figures/03-help.pdf}
@@ -142,7 +142,7 @@
 \begin{frame}
   \frametitle{Using a feature branch}
   \vspace{-1em}
-  The state of master after \textbf{rebase}:
+  The state of \textit{master} after \textbf{rebase}:
   \vspace{1em}
   \begin{center}
     \includegraphics[scale=0.6]{../git-figures/03-after-rebase.pdf}
@@ -164,7 +164,7 @@
 \begin{frame}
   \frametitle{Moving branches}
   \vspace{-1em}
-  This can be done using\, \texttt{git reset HEAD \^}.
+  This can be done using\, \texttt{git reset HEAD \^}
   \vspace{1em}
   \begin{center}
     \hspace{-2em}
@@ -199,7 +199,7 @@
   \frametitle{Rebasing feature branches}
   \vspace{-1em}
   We add more commits to the feature branch and then \textbf{rebase} it onto
-  master (to avoid creation of a merge commit).
+  \textit{master} (to avoid creation of a merge commit).
   \vspace{1em}
   \begin{center}
     \hspace{-2em}
@@ -261,7 +261,7 @@
 \begin{frame}
   \frametitle{Copying commits from other branches}
   \vspace{-1em}
-  After moving 3 commits from \textit{recursion} \textit{multiple-files}:
+  After moving 3 commits from \textit{recursion} into \textit{multiple-files}:
   \vspace{2.2em}
   \begin{center}
     \includegraphics[scale=0.6]{../git-figures/05-multiple-files.pdf}
@@ -271,7 +271,7 @@
 \begin{frame}
   \frametitle{Copying commits from other branches}
   \vspace{-1em}
-  If the commits are altered in \textit{multiple-files}, it mey be needed to
+  If the commits are altered in \textit{multiple-files}, it may be needed to
   use \texttt{skip} when rebasing \textit{recursion} onto
   \textit{multiple-files}.
   \vspace{1em}
