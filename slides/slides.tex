@@ -69,6 +69,8 @@
   \end{itemize}
 \end{frame}
 
+\section{Advanced work with Git}
+
 \begin{frame}
   \frametitle{Let's start}
   \begin{itemize}
@@ -303,4 +305,92 @@
   \end{itemize}
 \end{frame}
 
+\section{Git tips and tricks}
+
+\begin{frame}
+  \frametitle{Cloning repositories with a long history}
+  \begin{itemize}
+    \item If a repo has a long history, it may take long time to clone it.
+    \item If the entire history is no needed, it is possible to use a
+      \textbf{shallow copy}:\\ \texttt{git clone --max-depth N}
+    \item Try it with the Linux kernel:\\
+      \texttt{git clone --max-depth 1 https://github.com/torvalds/linux}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Default push and pull into different remotes}
+  \begin{itemize}
+    \item When using pull requests, it may be useful to pull from the
+      \textbf{upstream} repo but push into own \textbf{fork}.
+    \item A different remote for push can be configured using:\\
+      \texttt{git config remote.pushdefault <remote>}
+    \item Alternatively, this can be configured per-branch:\\
+      \texttt{git config branch.<branch>.pushremote <remote>}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Signing commits}
+  \begin{itemize}
+    \item By default, it is not possible to verify that a certain commit was
+      truly created by the person who is stated as the author.
+    \item Theoretically, anyone can set your name and email as theirs and
+      commit on your behalf.
+    \item To resolve this problem, Git offers \textbf{signing commits} using
+      GPG keys.
+    \item GitHub offers a nice tutorial on how to setup commit signing:
+      \url{https://help.github.com/en/github/authenticating-to-github/signing-commits}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Setup your environment}
+  \vspace{-1em}
+  There are various possibilities on how to ease your life with Git:
+  \begin{itemize}
+    \item \textbf{Git prompt}
+      \begin{itemize}
+        \item It is possible to setup Bash prompt such that it shows the
+          current branch, state of the directory, etc.
+        \item There are many tutorials on how to set the prompt
+        \item Some alternative shells (e.g. Fish, zsh) include Git prompt by
+          default
+      \end{itemize}
+
+    \item \textbf{IDE/Editor support}
+      \begin{itemize}
+        \item It is useful to see which lines were added/removed/changed from
+          the current HEAD.
+        \item Most IDEs and editors offer a way to setup this.
+      \end{itemize}
+
+    \item \textbf{Use tools for history inspection}
+      \begin{itemize}
+        \item There is a number of tools for an easier history traversal
+        \item E.g. \textbf{tig}, gitk, \ldots
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Setup your environment}
+  \begin{itemize}
+
+    \item \textbf{Command aliases}
+      \begin{itemize}
+        \item Many Git commands are quite long (or have many options).
+        \item It is possible to setup short aliases for most commonly used
+          commands.
+        \item Git offers a way to set aliases:\\
+          \texttt{git config --global alias.co checkout\\...}\\
+          or edit \texttt{\$HOME/.gitconfig}:\\
+          \texttt{
+            [alias]\\
+            \quad co = checkout\\
+            \quad ...}
+        \item An alternative is to setup aliases via shell
+      \end{itemize}
+  \end{itemize}
+\end{frame}
 \end{document}
