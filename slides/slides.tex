@@ -74,6 +74,7 @@
 \begin{frame}
   \frametitle{Let's start}
   \begin{itemize}
+    \setlength\itemsep{.5em}
     \item We'll write a simple tool for counting characters, words, and lines
       in a file (similar to the \texttt{wc} utility)
     \item We start with a pre-initialized repo containing very basics of the
@@ -116,6 +117,7 @@
 \begin{frame}
   \frametitle{Better team synchronisation}
   \begin{itemize}
+    \setlength\itemsep{.5em}
     \item \textbf{This is not a good practice!}
     \item Always implement new features in \textbf{separate branches}.
     \item Potential merge conflicts should be resolved in the feature branch.
@@ -236,6 +238,7 @@
 \begin{frame}
   \frametitle{Interactive rebase}
   \begin{itemize}
+    \setlength\itemsep{.5em}
     \item One of the most important Git features in the modern pull
       request-based workflow.
     \item Allows to \textbf{edit}, \textbf{reorder}, \textbf{merge}, or
@@ -286,20 +289,23 @@
   \frametitle{Hunting bugs in Git history}
   \vspace{-1em}
   \begin{itemize}
+    \setlength\itemsep{.5em}
     \item We often discover a bug that was certainly introduced
       \textbf{somewhere in the Git history}.
       \begin{itemize}
         \item There is a revision in the past where some test works correctly.
         \item However, the test does not work now.
       \end{itemize}
+    \pause
     \item Git offers \texttt{git bisect} that uses \textbf{binary search} to
       localise the commit that caused the bug.
       \begin{itemize}
-        \item \texttt{git bisect start} starts bisecting.
-        \item \texttt{git bisect good} marks a commit that does not contain
+        \item \texttt{git bisect start }starts bisecting.
+        \item \texttt{git bisect good }marks a commit that does not contain
           the bug.
-        \item \texttt{git bisect bad} marks a commit contains the bug.
+        \item \texttt{git bisect bad }marks a commit contains the bug.
       \end{itemize}
+    \pause
     \item The process can be \textbf{automated} using a script that returns 0
       on success and a non-zero result on failure.
   \end{itemize}
@@ -310,6 +316,7 @@
 \begin{frame}
   \frametitle{Cloning repositories with a long history}
   \begin{itemize}
+    \setlength\itemsep{.5em}
     \item If a repo has a long history, it may take long time to clone it.
     \item If the entire history is no needed, it is possible to use a
       \textbf{shallow copy}:\\ \texttt{git clone --max-depth N}
@@ -321,6 +328,7 @@
 \begin{frame}
   \frametitle{Default push and pull into different remotes}
   \begin{itemize}
+    \setlength\itemsep{.5em}
     \item When using pull requests, it may be useful to pull from the
       \textbf{upstream} repo but push into own \textbf{fork}.
     \item A different remote for push can be configured using:\\
@@ -333,10 +341,12 @@
 \begin{frame}
   \frametitle{Signing commits}
   \begin{itemize}
+    \setlength\itemsep{.5em}
     \item By default, it is not possible to verify that a certain commit was
       truly created by the person who is stated as the author.
     \item Theoretically, anyone can set your name and email as theirs and
       commit on your behalf.
+    \pause
     \item To resolve this problem, Git offers \textbf{signing commits} using
       GPG keys.
     \item GitHub offers a nice tutorial on how to setup commit signing:
@@ -346,9 +356,10 @@
 
 \begin{frame}
   \frametitle{Setup your environment}
-  \vspace{-1em}
+  \vspace{-2em}
   There are various possibilities on how to ease your life with Git:
   \begin{itemize}
+    \setlength\itemsep{.5em}
     \item \textbf{Git prompt}
       \begin{itemize}
         \item It is possible to setup Bash prompt such that it shows the
@@ -357,14 +368,14 @@
         \item Some alternative shells (e.g. Fish, zsh) include Git prompt by
           default
       \end{itemize}
-
+    \pause
     \item \textbf{IDE/Editor support}
       \begin{itemize}
         \item It is useful to see which lines were added/removed/changed from
-          the current HEAD.
+          HEAD.
         \item Most IDEs and editors offer a way to setup this.
       \end{itemize}
-
+    \pause
     \item \textbf{Use tools for history inspection}
       \begin{itemize}
         \item There is a number of tools for an easier history traversal
@@ -375,10 +386,12 @@
 
 \begin{frame}[fragile]
   \frametitle{Setup your environment}
+  \vspace{-1em}
   \begin{itemize}
-
+    \setlength\itemsep{.5em}
     \item \textbf{Command aliases}
       \begin{itemize}
+        \setlength\itemsep{.5em}
         \item Many Git commands are quite long (or have many options).
         \item It is possible to setup short aliases for most commonly used
           commands.
