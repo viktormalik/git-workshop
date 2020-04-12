@@ -153,9 +153,11 @@ int main(int argc, char *argv[]) {
         while ((c = fgetc(f)) != EOF) {
             if (config.line_counter && c == '\n') {
                 stats.lines++;
-            } else if (config.char_counter) {
+            }
+            if (config.char_counter) {
                 stats.chars++;
-            } else if (config.word_counter) {
+            }
+            if (config.word_counter) {
                 if (count_next) {
                     if (isspace(c))
                         stats.words++;
@@ -163,7 +165,8 @@ int main(int argc, char *argv[]) {
                 } else {
                     count_next = true;
                 }
-            } else if (config.separator && c == config.separator) {
+            }
+            if (config.separator && c == config.separator) {
                 stats.custom_phrases++;
             }
         }
