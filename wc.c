@@ -9,14 +9,16 @@ int main(int argc, char *argv[]) {
     }
     FILE *f = fopen(argv[2], "r");
 
-    if (strcmp("-c", argv[1]) == 0 || strcmp("-w", argv[1]) == 0) {
+    if (strcmp("-c", argv[1]) == 0 || strcmp("-w", argv[1]) == 0 || strcmp("-l", argv[1]) == 0) {
         int i = 0;
         int c;
         while ((c = fgetc(f)) != EOF) {
-            if (strcmp("-c", argv[1]) == 0) {
-                i++;
+            if (strcmp("-l", argv[1]) == 0 && c == '\n') {
+              i++;
+            } else if (strcmp("-c", argv[1]) == 0) {
+              i++;
             } else if (strcmp("-w", argv[1]) == 0 && isspace(c)) {
-                i++;
+              i++;
             }
         }
         printf("%d\n", i);
