@@ -33,7 +33,7 @@ struct Configuration {
 
     char* separator;      // define own separator for counting
     char* filename;       // the file that should be parsed
-} config = {false, false, false, NULL};
+} config = {false, false, false, NULL, NULL};
 
 
 int process_cmdline(int argc, char *argv[]) {
