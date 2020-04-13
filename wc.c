@@ -31,9 +31,9 @@ struct Configuration {
     bool line_counter;    // line counter
     bool word_counter;    // word counter
 
-    char* separator;      // define own separator for counting
+    char separator;       // define own separator for counting
     char* filename;       // the file that should be parsed
-} config = {false, false, false, NULL, NULL};
+} config = {false, false, false, '\0', NULL};
 
 
 int process_cmdline(int argc, char *argv[]) {
@@ -64,7 +64,7 @@ int process_cmdline(int argc, char *argv[]) {
               return 1;
             }
             i++;
-            config.separator = argv[i];
+            config.separator = argv[i][0];
             count_defined++;
         } else if (argv[i][0] != '-') {
             config.filename = argv[i];
@@ -103,7 +103,7 @@ int main(int argc, char *argv[]) {
 
     // do nothing if no counter is defined
     if (config.char_counter || config.word_counter || config.line_counter
-            || config.separator != NULL) {
+            || config.separator != '\0') {
         int i = 0;
         int c;
         while ((c = fgetc(f)) != EOF) {
@@ -113,7 +113,7 @@ int main(int argc, char *argv[]) {
                 i++;
             } else if (config.word_counter && isspace(c)) {
                 i++;
-            } else if (config.separator && c == config.separator[0]) {
+            } else if (config.separator && c == config.separator) {
                 i++;
             }
         }
