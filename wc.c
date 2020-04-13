@@ -52,15 +52,12 @@ int process_cmdline(int argc, char *argv[]) {
         if (strcmp("-c", argv[i]) == 0) {
             config.char_counter = true;
             count_defined++;
-            continue;
         } else if (strcmp("-w", argv[i]) == 0) {
             config.word_counter = true;
             count_defined++;
-            continue;
         } else if (strcmp("-l", argv[i]) == 0) {
             config.line_counter = true;
             count_defined++;
-            continue;
         } else if (strcmp("-s", argv[i]) == 0) {
             if (i+1 >= argc) {
               fprintf(stderr, "The '-s' option requires argument.\n");
@@ -69,7 +66,6 @@ int process_cmdline(int argc, char *argv[]) {
             i++;
             config.separator = argv[i];
             count_defined++;
-            continue;
         } else if (strcmp("-h", argv[i]) == 0) {
             print_help();
             exit(0);
