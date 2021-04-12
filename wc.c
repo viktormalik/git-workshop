@@ -20,7 +20,7 @@ int main(int argc, char *argv[]) {
         return 0;
     }
 
-    if (argc != 3 && argc != 4) {
+    if (!(argc == 3 || (argc == 4 && strcmp("-s", argv[1]) == 0))) {
         fprintf(stderr, "Incorrect number of arguments\n");
         return 1;
     }
