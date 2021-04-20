@@ -47,7 +47,7 @@
 \subtitle{IVS demonstration exercise}
 \author{Viktor Malík \and Petr Stodůlka \and Pavel Odvody}
 \institute{Red Hat}
-\date{April 14, 2020}
+\date{April 21, 2021}
 
 \begin{document}
 
@@ -65,6 +65,7 @@
         \item inspecting history (\texttt{git log, git show})
         \item working with remotes (\texttt{git pull, git push})
         \item working with branches (\texttt{git checkout, git branch})
+        \item merging branches (\texttt{git merge, git rebase})
       \end{itemize}
   \end{itemize}
 \end{frame}
@@ -80,9 +81,13 @@
     \item We start with a pre-initialized repo containing very basics of the
       tool:\\
       \url{https://github.com/viktormalik/git-workshop}
-    \item The repo contains a source file \texttt{wc.c}, a testing file, and 
-      a \texttt{Makefile}
-    \item We start by adding \texttt{.gitignore} and commiting it
+    \item The repo contains:
+      \begin{itemize}
+        \item source file \texttt{wc.c}
+        \item testing file \texttt{testfile}
+        \item \texttt{Makefile}
+        \item \texttt{.gitignore}
+      \end{itemize}
   \end{itemize}
 \end{frame}
 
@@ -323,19 +328,6 @@
       \textbf{shallow copy}:\\ \texttt{git clone --max-depth N}
     \item Try it with the Linux kernel:\\
       \texttt{git clone --max-depth 1 https://github.com/torvalds/linux}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Default push and pull into different remotes}
-  \begin{itemize}
-    \setlength\itemsep{.5em}
-    \item When using pull requests, it may be useful to pull from the
-      \textbf{upstream} repo but push into own \textbf{fork}.
-    \item A different remote for push can be configured using:\\
-      \texttt{git config remote.pushdefault <remote>}
-    \item Alternatively, this can be configured per-branch:\\
-      \texttt{git config branch.<branch>.pushremote <remote>}
   \end{itemize}
 \end{frame}
 
