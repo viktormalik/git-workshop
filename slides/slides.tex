@@ -47,7 +47,7 @@
 \subtitle{IVS demonstration exercise}
 \author{Viktor Malík \and Petr Stodůlka \and Pavel Odvody}
 \institute{Red Hat}
-\date{April 21, 2021}
+\date{April 22, 2022}
 
 \begin{document}
 
@@ -56,7 +56,7 @@
 \begin{frame}
   \frametitle{Prerequisites}
   \begin{itemize}
-    \setlength\itemsep{.3em}
+    \setlength\itemsep{1em}
     \item Basic knowledge of Git commands for:
       \begin{itemize}
       \setlength\itemsep{.3em}
@@ -67,7 +67,66 @@
         \item working with branches (\texttt{git checkout, git branch})
         \item merging branches (\texttt{git merge, git rebase})
       \end{itemize}
+    \item Git commands cheatsheet:\\
+      \footnotesize\url{https://www.atlassian.com/git/tutorials/atlassian-git-cheatsheet}
   \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Git cherry pick}
+  \begin{itemize}
+    \vspace{-1.5em}
+    \item \texttt{git cherry-pick} allows to \textbf{copy} a commit from one
+      branch to another
+  \end{itemize}
+
+  \vspace{1em}
+  \begin{columns}[c]
+    \begin{column}{.5\textwidth}
+      \centering
+      \includegraphics[scale=0.6]{../git-figures/cherry-pick-pre.pdf}\\[1em]
+      \onslide<2->{
+        \hspace{2em}\texttt{git cherry-pick 3b3791b}
+      }
+    \end{column}
+    \onslide<3>{
+    \begin{column}{.5\textwidth}
+      \centering
+      \includegraphics[scale=0.6]{../git-figures/cherry-pick-post.pdf}
+    \end{column}
+    }
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Git commit ranges}
+  \begin{columns}[c]
+    \begin{column}{.7\textwidth}
+      \begin{itemize}
+      \setlength\itemsep{.8em}
+        \item<1-> \texttt{2756e30..af94919} selects all commits from
+          \textit{Commit~D} (inclusive) to \textit{Commit~B} (exclusive)
+        \item<2-> \texttt{af94919\textasciicircum} gives the parent of
+          \textit{Commit~B} (\textit{Commit~A})
+        \item<3> Hence, \texttt{2756e30..af94919\textasciicircum} selects 
+          the commit range including \textit{Commit~B}
+      \end{itemize}
+    \end{column}
+    \begin{column}{.3\textwidth}
+      \begin{tikzpicture}
+        \node at (0,0) {\includegraphics[scale=0.6]{../git-figures/commit-ranges.pdf}};
+        \onslide<1>{
+          \draw (-1.7,0) rectangle ++(4,2) {};
+        }
+        \onslide<2>{
+          \draw (-1.7,-2) rectangle ++(4,1) {};
+        }
+        \onslide<3>{
+          \draw (-1.7,-1) rectangle ++(4,3) {};
+        }
+      \end{tikzpicture}
+    \end{column}
+  \end{columns}
 \end{frame}
 
 \section{''Advanced'' work with Git}

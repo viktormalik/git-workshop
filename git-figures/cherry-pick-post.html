@@ -14,7 +14,6 @@
         const graphContainer = document.getElementById("graph-container");
 
         options.template.commit.message.displayHash = true;
-        options.template.branch.label.display = false;
         // Instantiate the graph.
         const gitgraph = GitgraphJS.createGitgraph(graphContainer, options);
 
@@ -22,18 +21,28 @@
     
         master.commit({
             subject: "Commit A",
+            hash: "36a1053",
         });
+
+        const branch = gitgraph.branch("branch")
 
         master.commit({
             subject: "Commit B",
+            hash: "4dcc30c",
         });
 
         master.commit({
             subject: "Commit C",
         });
+        
+        branch.commit({
+            subject: "Commit C",
+            hash: "3b3791b",
+        });
 
-        master.commit({
+        branch.commit({
             subject: "Commit D",
+            hash: "2c00a87",
         });
 
     </script>
