@@ -18,6 +18,22 @@ The model project is written in C and it implements a functionality similar to
 the Unix `wc` utility - at the beginning it contains just character counting and
 additional functions are added during the workshop.
 
+The workshop was prepared by:
+- Viktor Malík <vmalik@redhat.com>
+- Petr Stodůlka <pstodulk@redhat.com>
+- Pavel Odvody <podvody@redhat.com>
+
+It is annually held at the Faculty of Information Technology of Brno University
+of Technology, as a part of the [Practical Aspects of Software Design
+](https://www.fit.vut.cz/study/course/231042/) course.
+
+The materials are licensed under the MIT license and you are free to reproduce
+the workshop using the instructions below.
+
+The workshop is accompanied with slides that illustrate the explained concepts.
+Slides are in LaTeX and require `xelatex` for building. For convenience, we also
+keep the PDF with the latest slides version in the repository.
+
 ## Prerequisites
 
 We assume that the workshop audience is familiar with basic concepts of Git,
