@@ -87,7 +87,12 @@
   \begin{columns}[c]
     \begin{column}{.5\textwidth}
       \centering
-      \includegraphics[scale=0.6]{git-figures/cherry-pick-pre.pdf}\\[1em]
+      \onslide*<1>{
+        \includegraphics[scale=0.6]{git-figures/cherry-pick-pre.pdf}\\[1em]
+      }
+      \onslide*<2->{
+        \includegraphics[scale=0.6]{git-figures/cherry-pick-pre-highlight.pdf}\\[1em]
+      }
       \onslide<2->{
         \hspace{2em}\texttt{git cherry-pick 3b3791b}
       }
@@ -200,11 +205,14 @@
   \end{itemize}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
   \frametitle{Using a feature branch}
   \vspace{-1em}
-  Let us add help into the tool using a separate branch \textit{add\_help}
-  \vspace{1em}
+  Let us add help into the tool using a separate branch \textit{add\_help}\\
+  \begin{verbatim}
+  git checkout -b add_help
+  git commit -m "Add help for the wc utility"
+  \end{verbatim}
   \begin{center}
     \includegraphics[scale=0.6]{git-figures/03-help.pdf}
   \end{center}
@@ -213,7 +221,10 @@
 \begin{frame}
   \frametitle{Using a feature branch}
   \vspace{-1em}
-  The state of \textit{master} after \textbf{rebase}:
+  Then, we open a \textbf{pull request (PR)} from \textit{add\_help} to
+  \textit{master}, review it, and merge it using the \textbf{``rebase''}
+  strategy.\\[.5em]
+  The state of \textit{master} after the PR is merged:
   \vspace{1em}
   \begin{center}
     \includegraphics[scale=0.6]{git-figures/03-after-rebase.pdf}
@@ -223,8 +234,12 @@
 \begin{frame}
   \frametitle{Moving branches}
   \vspace{-1em}
-  We have 2 branches pointing to the same commit and we want to move one
-  backwards.
+  We start working on a new feature (branch \textit{own-separator}) only to
+  realize that we need to implement something else before. So, we create
+  another branch \textit{option-opt}.\\[.5em]
+
+  But now, we have two branches pointing to the same commit and we need to
+  \textbf{move one backwards}.
   \vspace{1em}
   \begin{center}
     \hspace{-2em}
@@ -232,11 +247,15 @@
   \end{center}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
   \frametitle{Moving branches}
   \vspace{-1em}
-  This can be done using\, \texttt{git reset HEAD \^}
-  \vspace{1em}
+  Instead of deleting and re-creating \textit{option-opt}, we can move it
+  \textbf{one commit back}: 
+  \begin{verbatim}
+  git checkout option-opt
+  git reset HEAD^
+  \end{verbatim}
   \begin{center}
     \hspace{-2em}
     \includegraphics[scale=0.7]{git-figures/04-after-reset.pdf}
@@ -266,14 +285,23 @@
   \end{center}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
   \frametitle{Rebasing feature branches}
   \vspace{-1em}
   We add more commits to the feature branch and then \textbf{rebase} it onto
-  \textit{master} (to avoid creation of a merge commit).
-  \vspace{1em}
+  \textit{master} (to avoid creation of a merge commit). This introduces a
+  \textbf{merge conflict} which we need to resolve using a \textbf{mergetool}
+  (we're using \texttt{meld}).
+  \begin{verbatim}
+  git checkout own-separator
+  git commit -m "More robust ..."
+  git rebase master
+  [... merge conflict ...]
+  git mergetool
+  \end{verbatim}
   \begin{center}
-    \hspace{-2em}
+    \vspace{-7em}
+    \hspace{19.5em}
     \includegraphics[scale=0.6]{git-figures/04-after-rebase.pdf}
   \end{center}
 \end{frame}
@@ -290,16 +318,26 @@
   \end{center}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
   \frametitle{Rebasing feature branches}
   \vspace{-1em}
   It is possible to merge the ``fix commit'' into one of the previous commits
-  using \textbf{interactive rebase} (\texttt{git rebase -i}).
-  \vspace{1em}
+  using \textbf{interactive rebase} (\texttt{git rebase -i master}):\\[.5em]
+
+  Opens up an interactive editor:\\[.3em]
+  \small
+  \texttt{\textbf{pick} Add counting by custom separator}\\
+  \texttt{\textbf{fixup} Fix error done during rebase}\\
+  \texttt{\textbf{pick} More robust CLI options check}\\
+
   \begin{center}
-    \hspace{-2em}
+    \vspace{-3em}
+    \hspace{21.5em}
     \includegraphics[scale=0.6]{git-figures/04-after-rebase.pdf}
   \end{center}
+
+  \vspace{-7em}
+  This merges the second (originally last)\\commit into the first one:
 \end{frame}
 
 \begin{frame}

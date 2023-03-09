@@ -13,39 +13,37 @@
         // Get the graph container HTML element.
         const graphContainer = document.getElementById("graph-container");
 
+        options.template.commit.message.displayHash = true;
         // Instantiate the graph.
         const gitgraph = GitgraphJS.createGitgraph(graphContainer, options);
 
         const master = gitgraph.branch("master")
     
         master.commit({
-            subject: "Add basics of the wc tool",
-            author: "Viktor Malik",
-        });
-        
-        master.commit({
-            subject: "Add testfile for testing of the wc",
-            author: "Petr Stodulka",
-        });
-        
-        master.commit({
-            subject: "Validate number of arguments",
-            author: "Viktor Malik",
-        });
-        
-        master.commit({
-            subject: "Add .gitignore",
-            author: "Viktor Malik",
+            subject: "Commit A",
+            hash: "36a1053",
         });
 
+        const branch = gitgraph.branch("branch")
+
         master.commit({
-            subject: "Add line counting",
-            author: "Viktor Malik",
+            subject: "Commit B",
+            hash: "4dcc30c",
+        });
+
+        branch.commit({
+            subject: "Commit C",
+            hash: "3b3791b",
             style: {
               message: {
                 font: "bold 16pt Overpass",
               }
             }
+        });
+
+        branch.commit({
+            subject: "Commit D",
+            hash: "2c00a87",
         });
 
     </script>

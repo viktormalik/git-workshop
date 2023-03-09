@@ -32,12 +32,22 @@
         });
 
         master.commit({
-            subject: "Commit C",
+            subject: "Copy of commit C",
+            style: {
+              message: {
+                font: "bold 16pt Overpass",
+              }
+            }
         });
         
         branch.commit({
             subject: "Commit C",
             hash: "3b3791b",
+            style: {
+              message: {
+                font: "bold 16pt Overpass",
+              }
+            }
         });
 
         branch.commit({
