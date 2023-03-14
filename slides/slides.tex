@@ -6,7 +6,6 @@
 \usepackage{pifont}
 \usepackage{makecell}
 
-
 \definecolor{hlcolor}{RGB}{2,65,77}
 \definecolor{bgcolor}{RGB}{241,241,241}
 \definecolor{rhreddark}{RGB}{163,0,0}
@@ -357,37 +356,113 @@
 \end{frame}
 
 \begin{frame}
+  \frametitle{How to rewrite commit history}
+  \framesubtitle{Option 1: edit commits via interactive rebase}
+  Running interactive rebase and selecting \texttt{edit} for the relevant
+  commits:\\[.5em]
+  \footnotesize
+  \texttt{pick c853f71 unify whitespaces (replace t by 4 spaces)}\\
+  \texttt{pick 4fe8acb extend gitignore: added .test-playground}\\
+  \texttt{pick 1b7ccf1 Add just comments into the code}\\
+  \texttt{\textbf{edit e94003b Improve processing of the cmdline parameters}}\\
+  \texttt{pick b5917e8 cmdline parsing: filename is not positional anymore}\\
+  \texttt{pick 43b6520 Check the input file has been opened}\\[1em]
+
+  \normalsize
+  How to know the right commits? Use \texttt{git blame}.
+\end{frame}
+
+\begin{frame}
+  \frametitle{How to rewrite commit history}
+  \framesubtitle{Option 2: using fixup commits}
+
+  Commit with the \texttt{--fixup} option:\\[.5em]
+  \footnotesize
+  \texttt{\$ git log --oneline -3}\\
+  \texttt{43b6520 Check the input file has been opened}\\
+  \texttt{\textbf{b5917e8} cmdline parsing: filename is not positional anymore}\\
+  \texttt{\textbf{e94003b} Improve processing of the cmdline parameters}\\
+  \texttt{\$ git commit --fixup \textbf{e94003b}}\\
+  \texttt{\$ git commit --fixup \textbf{b5917e8}}\\[1em]
+
+  \normalsize
+  Now, using interactive rebase with \texttt{--autosquash} will take care of
+  everything:\\
+  \texttt{git rebase master --interactive \textbf{--autosquash}}
+  
+\end{frame}
+
+\begin{frame}
   \frametitle{Copying commits from other branches}
   \vspace{-1em}
-  It is possible to copy commits from other branches (e.g. commits implementing
-  useful features from co-workers feature branches) using\, \texttt{git
-  cherry-pick}.
+  It is possible to \textbf{copy commits} from other branches (e.g. commits
+  implementing useful features from co-workers feature branches) using\,
+  \texttt{git cherry-pick}.\\
   \vspace{1em}
+  The \textit{recursion} branch:
   \begin{center}
+    \vspace{-1.5em}
+    \hspace{7em}
     \includegraphics[scale=0.6]{git-figures/05-recursion.pdf}
   \end{center}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
   \frametitle{Copying commits from other branches}
   \vspace{-1em}
-  After moving 3 commits from \textit{recursion} into \textit{multiple-files}:
-  \vspace{2.2em}
+  Now, let's create a new branch \textit{multiple-files}, cherry-pick the first
+  three commits from \textit{recursion}, and add a new commit on top:
+  \footnotesize
+  \begin{verbatim}
+git checkout -b multiple-files
+git cherry-pick e13e79f^..96e2313
+git commit -m "Support ..."
+  \end{verbatim}
+
+  \normalsize
+  Equivalent cherry-pick range:\\
+  \small
+  \texttt{recursion@\{4\}..recursion@\{1\}}
+
   \begin{center}
+    \vspace{-9.5em}
+    \hspace*{18em}
     \includegraphics[scale=0.6]{git-figures/05-multiple-files.pdf}
   \end{center}
+
 \end{frame}
 
 \begin{frame}
   \frametitle{Copying commits from other branches}
-  \vspace{-1em}
-  If the commits are altered in \textit{multiple-files}, it may be needed to
-  use \texttt{skip} when rebasing \textit{recursion} onto
-  \textit{multiple-files}.
-  \vspace{1em}
-  \begin{center}
-    \includegraphics[scale=0.6]{git-figures/05-multiple-files-rebase.pdf}
-  \end{center}
+  \vspace{-1.5em}
+  \small
+  Finally, we rewrite the cherry-picked commits:\\[.3em]
+  \footnotesize
+  \texttt{\textbf{edit} 9abab39 [Recursion 1/3] Enable multiple counters and
+    use new ...}\\
+  \texttt{\textbf{reword} 2c403cc [Recursion 2/3] Refactoring: process the file
+    inside ...}\\
+  \texttt{\textbf{reword} f85bb09 [Recursion 3/3] Count only regular files}\\
+  \texttt{pick Support multiple input files}\\[1em]
+
+  \small
+  Then, we try to rebase \texttt{recursion} on top of
+  \texttt{multiple-files}:\\[.3em]
+  \footnotesize
+  \texttt{git checkout recursion}\\
+  \texttt{git rebase multiple-files}\\
+  \texttt{[... \textbf{merge conflict during applying [Recursion 1/3]}
+    ...]}\\[1em]
+  \small
+  Git tried to apply the first commit from \textit{recursion}
+  (\texttt{e13e79f}) but the commit is already in
+  \textit{multiple-files}. Git failed to recognise that since we altered the
+  commit.
+
+  The solution is to use \texttt{\textbf{git rebase --skip}} for such commits.
+  %\begin{center}
+    %\includegraphics[scale=0.6]{git-figures/05-multiple-files-rebase.pdf}
+  %\end{center}
 \end{frame}
 
 \begin{frame}
