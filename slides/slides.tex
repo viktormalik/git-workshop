@@ -46,7 +46,7 @@
 \subtitle{IVS demonstration exercise}
 \author{Viktor Malík \and Petr Stodůlka \and Pavel Odvody}
 \institute{Red Hat}
-\date{April 22, 2022}
+\date{March 31, 2023}
 
 \begin{document}
 
@@ -69,8 +69,6 @@
       \end{itemize}
     \item Git commands cheatsheet:\\
       \footnotesize\url{https://www.atlassian.com/git/tutorials/atlassian-git-cheatsheet}
-    \item Questions during the demo? Join at \url{sli.do} with code
-      \textbf{\#845194}
   \end{itemize}
 \end{frame}
 
@@ -115,8 +113,11 @@
           \textit{Commit~D} (inclusive) to \textit{Commit~B} (exclusive)
         \item<2-> \texttt{af94919\textasciicircum} gives the parent of
           \textit{Commit~B} (\textit{Commit~A})
-        \item<3> Hence, \texttt{2756e30..af94919\textasciicircum} selects 
+        \item<3-> Hence, \texttt{2756e30..af94919\textasciicircum} selects
           the commit range including \textit{Commit~B}
+        \item<4> \textbf{Note:} the order of references does not matter.\\
+          \texttt{2756e30..af94919\textasciicircum} =
+          \texttt{af94919\textasciicircum..2756e30}
       \end{itemize}
     \end{column}
     \begin{column}{.3\textwidth}
@@ -128,7 +129,7 @@
         \onslide<2>{
           \draw (-1.7,-2) rectangle ++(4,1) {};
         }
-        \onslide<3>{
+        \onslide<3->{
           \draw (-1.7,-1) rectangle ++(4,3) {};
         }
       \end{tikzpicture}

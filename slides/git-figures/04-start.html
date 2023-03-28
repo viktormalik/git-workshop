@@ -29,11 +29,13 @@
         });
         
         const own_separator = gitgraph.branch("own-separator, option-opt")
-    
+
         own_separator.commit({
             subject: "Add counting by custom separator",
             author: "Viktor Malik",
         });
+
+        own_separator.tag("HEAD");
         
         const option_opt = gitgraph.branch("option-opt")
     

@@ -39,6 +39,13 @@
               }
             }
         });
+
+        master.tag({
+            name: "HEAD",
+            style: {
+                font: "normal 14pt Overpass",
+            }
+        });
         
         branch.commit({
             subject: "Commit C",
