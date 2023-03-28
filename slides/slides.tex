@@ -607,6 +607,42 @@ git commit -m "Support ..."
 \end{frame}
 
 \begin{frame}
+  \frametitle{Keep your repo clean}
+  \begin{itemize}
+    \item Delete merged/obsolete branches (locally)
+      \begin{itemize}
+        \item \texttt{git branch -d }doesn't always work (especially with
+          rebases)
+        \item \texttt{git branch -D }works but be careful not to delete
+          something important
+      \end{itemize}
+    \vspace{.5em}
+    \item Same applies for remote branches
+      \begin{itemize}
+        \item \texttt{git push --delete <remote> <branch>}
+        \item or enable auto-delete branch on your PRs
+        \item or use GitHub/GitLab/\ldots web UI
+      \end{itemize}
+    \vspace{.5em}
+    \item \texttt{git prune }removes unreachable objects (branches, tags, etc.)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Other interesting git commands}
+  \begin{itemize}
+    \item \texttt{git difftool} -- open mergetool for a specific commit and
+      file
+    \item \texttt{git worktree} -- checkout a branch into a directory
+    \item \texttt{git submodule} -- embed another git repository
+    \item \texttt{git grep} -- grep the entire repository
+    \item \texttt{git describe} -- find tags related to commit
+    \item \texttt{git reflog} -- the last recovery option when you break your
+      repo
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
   \frametitle{Useful links}
   \begin{itemize}
     \item Atlassian Advanced Git Tutorials\\
