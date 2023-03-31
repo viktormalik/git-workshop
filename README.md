@@ -71,18 +71,10 @@ We will refer to the two team members as **A** and **B**.
 
 ## Setup
 
-First of all, it is necessary to create a new Git repo owned by one of the team
-members, in our case **A**. This repo is set up as a template repository so you
-can create the new repo with the initial state of the workshop with the
-following steps:
-- click **Use this template** on the repository main page
-- select **Create a new repository**
-- select the repository owner (you GitHub account) and name the repo
-- select **Include all branches**
-- click **Create repository from template**
-- after the repository is created and you have cloned it, setup the initial
-  state of the workshop by resetting `master` to the `gws_master_initial` branch
-  (`git reset --hard master gws_master_initial`)
+First of all, one of the team members (in our case **A**) should create a new
+repo by forking or duplicating (please do not just clone) this repository. Then,
+setup the initial state of the workshop by resetting `master` to the
+`gws_master_initial` branch (`git reset --hard master gws_master_initial`).
 
 The initial state of the project contains 4 commits to start from:
 - basic program for character counting + `Makefile`
@@ -90,7 +82,7 @@ The initial state of the project contains 4 commits to start from:
 - validation of the number of CLI arguments
 - `.gitignore`
 
-**B** may also clone the same repo (do not create a fork, yet).
+**B** should clone the new repo (do not create a fork, yet).
 
 ## Scenarios
 
@@ -332,7 +324,7 @@ similar code.
 
 **Workflow:**
 - **B** implements the first version of recursive directory parsing using 4 commits
-  - *\*cherry-pick e13e79f^..96e2313*
+  - *\*cherry-pick e13e79f^..fc2cc92*
   - Notice the header of commit messages (using X/Y). This is not used in most
     projects anymore, but it used to be relevant when patches were sent via
     email.
