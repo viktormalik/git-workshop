@@ -44,9 +44,9 @@
 
 \title{Advanced Git}
 \subtitle{IVS demonstration exercise}
-\author{Viktor Malík \and Petr Stodůlka}
+\author{Viktor Malík \and Michal Hečko}
 \institute{Red Hat}
-\date{April 3, 2024}
+\date{April 9, 2025}
 
 \begin{document}
 
@@ -64,7 +64,7 @@
         \item inspecting current state (\texttt{git status, git diff})
         \item inspecting history (\texttt{git log, git show})
         \item working with remotes (\texttt{git pull, git push})
-        \item working with branches (\texttt{git checkout, git branch})
+        \item working with branches (\texttt{git switch, git branch})
         \item merging branches (\texttt{git merge, git rebase})
       \end{itemize}
     \item Git commands cheatsheet:\\
@@ -210,7 +210,7 @@
   \vspace{-1em}
   Let us add help into the tool using a separate branch \textit{add\_help}\\
   \begin{verbatim}
-  git checkout -b add_help
+  git switch -c add_help
   git commit -m "Add help for the wc utility"
   \end{verbatim}
   \begin{center}
@@ -253,7 +253,7 @@
   Instead of deleting and re-creating \textit{option-opt}, we can move it
   \textbf{one commit back}: 
   \begin{verbatim}
-  git checkout option-opt
+  git switch option-opt
   git reset HEAD^
   \end{verbatim}
   \begin{center}
@@ -293,7 +293,7 @@
   \textbf{merge conflict} which we need to resolve using a \textbf{mergetool}
   (we're using \texttt{meld}).
   \begin{verbatim}
-  git checkout own-separator
+  git switch own-separator
   git commit -m "More robust ..."
   git rebase master
   [... merge conflict ...]
@@ -415,7 +415,7 @@
   three commits from \textit{recursion}, and add a new commit on top:
   \footnotesize
   \begin{verbatim}
-git checkout -b multiple-files
+git switch -c multiple-files
 git cherry-pick e13e79f^..96e2313
 git commit -m "Support ..."
   \end{verbatim}
@@ -450,7 +450,7 @@ git commit -m "Support ..."
   Then, we try to rebase \texttt{recursion} on top of
   \texttt{multiple-files}:\\[.3em]
   \footnotesize
-  \texttt{git checkout recursion}\\
+  \texttt{git switch recursion}\\
   \texttt{git rebase multiple-files}\\
   \texttt{[... \textbf{merge conflict during applying [Recursion 1/3]}
     ...]}\\[1em]
@@ -667,7 +667,7 @@ git commit -m "Support ..."
   \vspace*{2em}
   \centering
   {\usebeamerfont{thankyou}\hl{Thank you for the attention!}}\\[1em]
-  Your feedback is welcome!\\\texttt{https://forms.gle/rtxQATGqyct9rNM77}
+  Your feedback is welcome!\\\texttt{https://forms.gle/iWeF7TVqW3ZrMV648}
 \end{frame}
 
 \end{document}
